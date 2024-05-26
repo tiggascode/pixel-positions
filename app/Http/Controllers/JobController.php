@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Job;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -18,7 +17,6 @@ class JobController extends Controller
 
         return Inertia::render('Index', [
             'jobs' => $jobs,
-            'loggedIn' => Auth::check(),
         ]);
     }
 
