@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Job;
+use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class JobController extends Controller
@@ -14,9 +16,15 @@ class JobController extends Controller
     public function index()
     {
         $jobs = Job::latest()->get()->groupBy('featured');
+        $jobsFeatured = $jobs[1];
+        $jobsRecent = $jobs[0];
+
 
         return Inertia::render('Index', [
-            'jobs' => $jobs,
+            'jobsFeatured' => $jobsFeatured,
+            'jobsRecent' => $jobsRecent,
+            'isAuth' => Auth::check(),
+            'tags' => Tag::all(),
         ]);
     }
 
@@ -41,7 +49,9 @@ class JobController extends Controller
      */
     public function show(Job $job)
     {
-        //
+        return Inertia::render('Components/JobShow', [
+            'job' => $job
+        ]);
     }
 
     /**

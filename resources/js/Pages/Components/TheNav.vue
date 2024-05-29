@@ -1,5 +1,11 @@
 <script setup>
 import logo from "../../../images/logo.svg";
+
+defineProps({
+    isAuth: {
+        type: Boolean,
+    },
+});
 </script>
 
 <template>
@@ -19,9 +25,12 @@ import logo from "../../../images/logo.svg";
             <a href="#">Companies</a>
         </div>
 
-        <div class="space-x-6 font-bold">
+        <div v-if="!isAuth" class="space-x-6 font-bold">
             <Link href="/register">Sing Up</Link>
             <Link href="/login">Login</Link>
+        </div>
+        <div v-if="isAuth" class="space-x-6 font-bold">
+            <Link href="/logout" method="post">LogOut</Link>
         </div>
     </nav>
 </template>
